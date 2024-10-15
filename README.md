@@ -9,7 +9,7 @@ Une fourchette est placée entre chaque philosophe ; un philosophe ne peut mange
 Le mutex doit être utilisé pour verrouiller les fourchettes de chaque philosophe afin d'éviter qu'ils ne se volent les fourchettes des autres.
 Une fois qu'un philosophe a mangé pendant `time_to_eat` millisecondes, il commence à dormir pendant `time_to_sleep` millisecondes puis commence à réfléchir. Il réfléchit aussi longtemps qu'il le peut mais au moins 2 millisecondes.
 Si un philosophe n'a pas commencé à manger depuis `time_to_die` millisecondes après le début de la simulation ou le début de son dernier repas, il meurt.
-Le programme affiche les journaux de la simulation selon le format suivant :
+Le programme affiche le journal de simulation selon le format suivant :
 * `timestamp_in_ms` `X` has taken a fork
 * `timestamp_in_ms` `X` is eating
 * `timestamp_in_ms` `X` is sleeping
