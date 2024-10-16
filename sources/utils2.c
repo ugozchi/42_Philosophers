@@ -6,7 +6,22 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 13:12:29 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/16 13:32:45 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
+
+int    ft_min(int a, int b)
+{
+    if (a < b)
+        return (a);
+    return (b);
+}
+
+int    ft_max(int a, int b)
+{
+    if (a >= b)
+        return (a);
+    return (b);
+}
