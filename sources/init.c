@@ -6,10 +6,10 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:27 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 13:32:57 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/16 14:07:45 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philosophers.h"
 
 

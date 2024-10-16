@@ -6,11 +6,11 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:15 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 13:32:49 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/16 14:07:31 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philosophers.h"
 
 int	ft_atoi(const char *nptr)
 {
