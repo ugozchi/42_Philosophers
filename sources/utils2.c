@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 14:07:40 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/16 16:25:51 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,18 @@ clock_t get_time(void)
 int display_log(char *log, t_philo *philo)
 {
     
+}
+
+/*La fonction fait une boucle infini jusqu'a ce */
+void    wait_for_start(t_data *data)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&data->start_of_simulation_mutex);
+		if (data->start_of_simulation)
+			break ;
+		pthread_mutex_unlock(&data->start_of_simulation_mutex);
+		usleep(50);
+	}
+	pthread_mutex_unlock(&data->start_of_simulation_mutex);
 }
