@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 16:25:51 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/17 11:46:51 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ clock_t get_time(void)
 
 int display_log(char *log, t_philo *philo)
 {
-    
+	/*Ilfaut que je m'occupe de cette fonction*/
 }
 
 /*La fonction fait une boucle infini jusqu'a ce */
