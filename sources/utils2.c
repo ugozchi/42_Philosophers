@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/17 11:46:51 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 18:00:56 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,24 @@ clock_t get_time(void)
 
 int display_log(char *log, t_philo *philo)
 {
-	/*Ilfaut que je m'occupe de cette fonction*/
+	clock_t	timestamp;
+	int		end_of_simulation_local;
+
+	pthread_mutex_lock(&philo->data->end_of_simulation_mutex);
+	end_of_simulation_local = philo->data->end_of_simulation;
+	pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
+	if (end_of_simulation_local && ft_strcmp(log, ALL_FULL_LOG)
+		&& ft_strcmp(log, DEATH_LOG))
+		return (0);
+	pthread_mutex_lock(&philo->data->display_mutex);
+	timestamp = get_time() - philo->data->start_time;
+	if (ft_strcmp(log, ALL_FULL_LOG) == 0)
+		printf(log, timestamp, philo->data->nbr_of_philo,
+			philo->data->nbr_of_meals);
+	else
+		printf(log, timestamp, philo->id);
+	pthread_mutex_unlock(&philo->data->display_mutex);
+	return (1);
 }
 
 /*La fonction fait une boucle infini jusqu'a ce */
