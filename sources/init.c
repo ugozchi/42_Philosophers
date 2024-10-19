@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:27 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 16:38:47 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 18:20:22 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,14 @@ int init_forks(t_data *data)
         }
         i++;
     }
+	return (EXIT_SUCCESS);
 }
 
 /*Initialise la data avec les arguments, puis initialise les philosophes
 et leurs fourchettes*/
 int init_data(t_data *data, char **argv)
 {
-    data->nbr_of_full_philo = ft_atoi(argv[1]);
+    data->nbr_of_philo = ft_atoi(argv[1]);
     data->time_to_die = ft_atoi(argv[2]);
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
