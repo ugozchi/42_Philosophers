@@ -6,37 +6,40 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 18:00:56 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 18:32:51 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int    ft_min(int a, int b)
+int	ft_min(int a, int b)
 {
-    if (a < b)
-        return (a);
-    return (b);
+	if (a < b)
+		return (a);
+	else
+		return (b);
 }
 
-int    ft_max(int a, int b)
+int	ft_max(int a, int b)
 {
-    if (a >= b)
-        return (a);
-    return (b);
+	if (a >= b)
+		return (a);
+	else
+		return (b);
 }
 
-clock_t get_time(void)
+clock_t	get_time(void)
 {
-    struct timeval  time;
-    clock_t         output;
+	struct timeval	time;
+	clock_t			output;
 
-    gettimeofday(&time, NULL);
+	gettimeofday(&time, NULL);
 	output = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (output);
 }
 
-int display_log(char *log, t_philo *philo)
+/*Displays the log passed as a string pointer for the philosopher 'philo'*/
+int	display_log(char *log, t_philo *philo)
 {
 	clock_t	timestamp;
 	int		end_of_simulation_local;
@@ -58,8 +61,8 @@ int display_log(char *log, t_philo *philo)
 	return (1);
 }
 
-/*La fonction fait une boucle infini jusqu'a ce */
-void    wait_for_start(t_data *data)
+/*Boucle en attendant le flag pour commencer*/
+void	wait_for_start(t_data *data)
 {
 	while (1)
 	{
