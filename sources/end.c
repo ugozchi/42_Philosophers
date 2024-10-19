@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:14:41 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 17:05:25 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 16:01:17 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,25 @@ int free_data(t_data *data, int exit_code)
     if (current)
         free_philosopher(current);
     return (exit_code);
+}
+
+/*Boucle parmis tous les philosophes pour rejoinde tous les threads qui ont
+été créé*/
+int	join_philo_thread(t_data *data)
+{
+	t_philo *ptr;
+	size_t	i;
+
+	i = data->nbr_of_full_philo;
+	ptr = data->philo;
+	while (i--)
+	{
+		if (pthread_join(ptr->routine, NULL) != 0)
+		{
+			printf(THREAD_JOIN_FAIL, ptr->id);
+			return (EXIT_FAILURE);
+		}
+		ptr = ptr->next;
+	}
+	return (EXIT_SUCCESS);
 }
