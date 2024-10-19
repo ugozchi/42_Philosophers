@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:19:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 16:44:27 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 16:53:50 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,30 @@ int	all_full_philo(t_data *data)
 	}
 	pthread_mutex_unlock(&data->nbr_of_full_philo_mutex);
 	return (0);
+}
+
+/*Regarde toutes les 10 microsecondes si tous les philosophes ont mangés
+ou si l'un est mort. Si c'est le cas la routine termine et retourne NULL*/
+void	monitor_routine(t_data *data)
+{
+	t_philo	*philo;
+
+	wait_for_start(data);
+	philo = data->philo;
+	while (1)
+	{
+		if (philo_is_dead(philo) || all_full_philo(data))
+		{
+			pthread_mutex_lock(&philo->data->end_of_simulation_mutex);
+			data->end_of_simulation = 1;
+			pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
+			if (all_full_philo(data))
+				display_log(ALL_FULL_LOG, philo);
+			else
+				display_log(DEATH_LOG, philo);
+			break ;
+		}
+		philo = philo->next;
+		usleep(10);
+	}
 }
