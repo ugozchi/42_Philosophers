@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:18:46 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 17:48:27 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 19:11:46 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ void	is_eating(t_philo	*philo)
 {
 	takes_forks(philo);
 	if (philo->data->nbr_of_philo == 1)
+	{
+		pthread_mutex_unlock(&philo->data->forks[philo->left_fork_id - 1]);
 		return ;
+	}
 	pthread_mutex_lock(&philo->last_meal_mutex);
 	philo->last_meal = get_time();
 	display_log(EAT_LOG, philo);
@@ -46,6 +49,8 @@ void	is_eating(t_philo	*philo)
 	pthread_mutex_unlock(&philo->data->forks[philo->left_fork_id - 1]);
 	pthread_mutex_unlock(&philo->data->forks[philo->right_fork_id - 1]);
 	philo->nbr_of_meals++;
+	if (philo->nbr_of_meals % 3 == 0)
+		usleep(200);
 	if (philo->data->nbr_of_meals
 		&& philo->nbr_of_meals == philo->data->nbr_of_meals
 		&& philo->philo_is_full != 1)
@@ -84,7 +89,10 @@ void	*routine(void *void_philo)
 	data = philo->data;
 	wait_for_start(data);
 	if (philo->id % 2 == 0)
+	{
+		usleep(200);
 		is_thinking(philo);
+	}
 	while (1)
 	{
 		pthread_mutex_lock(&data->end_of_simulation_mutex);

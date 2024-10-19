@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:19:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 18:36:00 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 19:15:43 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ est superieur à time_to_die, alors le philosophe est mort et la fonction
 retourne 1*/
 int	philo_is_dead(t_philo *philo)
 {
-	clock_t	time_since_last_meal;
+	__uint64_t	time_since_last_meal;
 
 	pthread_mutex_lock(&philo->last_meal_mutex);
 	time_since_last_meal = get_time() - philo->last_meal;

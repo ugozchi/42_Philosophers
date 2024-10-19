@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:52:05 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/16 13:10:39 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 19:16:55 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_philo
 	size_t			id;
 	int				left_fork_id;
 	int				right_fork_id;
-	clock_t			last_meal;
+	__uint64_t		last_meal;
 	pthread_mutex_t	last_meal_mutex;
 	size_t			nbr_of_meals;
 	int				philo_is_full;
@@ -63,9 +63,9 @@ typedef struct s_philo
 typedef struct s_data
 {
 	size_t			nbr_of_philo;
-	clock_t			time_to_die;
-	clock_t			time_to_eat;
-	clock_t			time_to_sleep;
+	__uint64_t		time_to_die;
+	__uint64_t		time_to_eat;
+	__uint64_t		time_to_sleep;
 	size_t			nbr_of_meals;
 	int				end_of_simulation;
 	pthread_mutex_t	end_of_simulation_mutex;
@@ -74,7 +74,7 @@ typedef struct s_data
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	display_mutex;
-	clock_t			start_time;
+	__uint64_t		start_time;
 	int				start_of_simulation;
 	pthread_mutex_t	start_of_simulation_mutex;
 }	t_data;
@@ -87,11 +87,11 @@ int		ft_isnumeric(char *str);
 int		ft_strcmp(const char *s1, const char *s2);
 
 /*_utils_2.c*/
-int		ft_min(int a, int b);
-int		ft_max(int a, int b);
-clock_t	get_time(void);
-int		display_log(char *log, t_philo *philo);
-void	wait_for_start(t_data *data);
+int			ft_min(int a, int b);
+int			ft_max(int a, int b);
+__uint64_t	get_time(void);
+int			display_log(char *log, t_philo *philo);
+void		wait_for_start(t_data *data);
 
 /*end.c*/
 void	destroy_forks(t_data *data);

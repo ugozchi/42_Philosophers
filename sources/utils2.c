@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 18:32:51 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 19:16:18 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	ft_max(int a, int b)
 		return (b);
 }
 
-clock_t	get_time(void)
+__uint64_t	get_time(void)
 {
 	struct timeval	time;
-	clock_t			output;
+	__uint64_t			output;
 
 	gettimeofday(&time, NULL);
 	output = (time.tv_sec * 1000) + (time.tv_usec / 1000);
@@ -41,7 +41,7 @@ clock_t	get_time(void)
 /*Displays the log passed as a string pointer for the philosopher 'philo'*/
 int	display_log(char *log, t_philo *philo)
 {
-	clock_t	timestamp;
+	__uint64_t	timestamp;
 	int		end_of_simulation_local;
 
 	pthread_mutex_lock(&philo->data->end_of_simulation_mutex);
