@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:12:28 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 19:16:18 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 19:18:57 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	wait_for_start(t_data *data)
 		if (data->start_of_simulation)
 			break ;
 		pthread_mutex_unlock(&data->start_of_simulation_mutex);
-		usleep(50);
+		usleep(500);
 	}
 	pthread_mutex_unlock(&data->start_of_simulation_mutex);
 }
