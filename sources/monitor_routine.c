@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:19:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 16:36:11 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/10/19 16:44:27 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,14 @@ int	philo_is_dead(t_philo *philo)
 au nombre de philosophe dans la simulation. Retourne 1 si full*/
 int	all_full_philo(t_data *data)
 {
-	
+	if (!data->nbr_of_meals)
+		return (0);
+	pthread_mutex_lock(&data->nbr_of_full_philo_mutex);
+	if (data->nbr_of_full_philo == data->nbr_of_philo)
+	{
+		pthread_mutex_unlock(&data->nbr_of_full_philo_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&data->nbr_of_full_philo_mutex);
+	return (0);
 }
