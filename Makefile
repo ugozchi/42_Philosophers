@@ -6,7 +6,7 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 13:20:12 by uzanchi           #+#    #+#              #
-#    Updated: 2024/10/19 18:11:31 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/10/19 18:12:52 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ NC			=	\033[0m
 BOLD		=	\033[1m
 TICK		=	✓
 
-SRC			=	_utils_1.c \
-				_utils_2.c \
+SRC			=	utils1.c \
+				utils2.c \
 				end.c \
 				init.c \
 				main.c \
