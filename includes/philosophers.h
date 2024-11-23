@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:52:05 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 19:39:27 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:47:45 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int main(int argc, char **argv);
 int philo_is_dead(t_philo *philo);
 int all_full_philo(t_data *data);
 void wait_for_start(t_data *data);
+int check_end_conditions(t_data *data, t_philo *philo);
 void monitor_routine(t_data *data);
 
 /*philo_routine.c*/
