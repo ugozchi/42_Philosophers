@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:52:05 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 19:21:29 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:25:25 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,12 @@ void monitor_routine(t_data *data);
 
 /*philo_routine.c*/
 void take_forks(t_philo *philo);
+void *routine(void *void_philo);
+
+/*state.c*/
 void eating(t_philo *philo);
 void sleeping(t_philo *philo);
 void thinking(t_philo *philo);
-void *routine(void *void_philo);
 
 /*thread.c*/
 int launch_threads(t_data *data);
