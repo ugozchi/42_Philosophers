@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:14:41 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/10/19 18:34:06 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 16:08:56 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	free_philosopher(t_philo *philosopher)
 	if (!philosopher)
 		return ;
 	pthread_mutex_destroy(&philosopher->last_meal_mutex);
+	pthread_mutex_destroy(&philosopher->status_mutex);
+	pthread_mutex_destroy(&philosopher->nb_meals_mutex);
 	free(philosopher);
 	philosopher = NULL;
 }
