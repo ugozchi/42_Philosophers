@@ -6,22 +6,12 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:18:46 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 19:27:39 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 20:01:18 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static int is_full_philo(t_philo *philo)
-{
-	int philo_is_full;
-
-	pthread_mutex_lock(&philo->nb_meals_mutex);
-	philo_is_full = philo->philo_is_full;
-	pthread_mutex_unlock(&philo->nb_meals_mutex);
-
-	return (philo_is_full);
-}
 
 void take_forks(t_philo *philo)
 {
@@ -43,6 +33,65 @@ void take_forks(t_philo *philo)
 	display_log(FORK_LOG, philo);
 }
 
+int is_full_philo(t_philo *philo)
+{
+	int philo_is_full;
+
+	pthread_mutex_lock(&philo->nb_meals_mutex);
+	philo_is_full = philo->philo_is_full;
+	pthread_mutex_unlock(&philo->nb_meals_mutex);
+
+	return (philo_is_full);
+}
+
+
+/* Vérifie la fin de simulation ou si un philosophe est plein */
+int check_simulation_end(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->end_of_simulation_mutex);
+	if (philo->data->end_of_simulation)
+	{
+		pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
+		return (1); // Simulation terminée
+	}
+	pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
+	if (is_full_philo(philo))
+	{
+		pthread_mutex_lock(&philo->status_mutex);
+		philo->status = THINKING;
+		pthread_mutex_unlock(&philo->status_mutex);
+		display_log(THINK_LOG, philo);
+		return (1); // Philosophe a fini de manger
+	}
+	return (0);
+}
+
+/* Gère les transitions entre les états du philosophe */
+void handle_philosopher_state(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->status_mutex);
+	if (philo->status == THINKING && is_full_philo(philo) == 0)
+	{
+		pthread_mutex_unlock(&philo->status_mutex);
+		eating(philo);
+	}
+	else if (philo->status == EATING)
+	{
+		pthread_mutex_unlock(&philo->status_mutex);
+		sleeping(philo);
+	}
+	else if (philo->status == SLEEPING)
+	{
+		pthread_mutex_unlock(&philo->status_mutex);
+		thinking(philo);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philo->status_mutex);
+	}
+}
+
+/* Routine principale du philosophe */
 void *routine(void *void_philo)
 {
 	t_philo *philo = (t_philo *)void_philo;
@@ -51,42 +100,57 @@ void *routine(void *void_philo)
 
 	while (1)
 	{
-		pthread_mutex_lock(&philo->data->end_of_simulation_mutex);
-		if (philo->data->end_of_simulation)
-		{
-			pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
+		if (check_simulation_end(philo))
 			break;
-		}
-		pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
-
-		if (is_full_philo(philo)) // Vérifie si le philosophe a atteint son quota de repas
-		{
-			pthread_mutex_lock(&philo->status_mutex);
-			philo->status = THINKING;
-			pthread_mutex_unlock(&philo->status_mutex);
-			display_log(THINK_LOG, philo);
-			break;
-		}
-		pthread_mutex_lock(&philo->status_mutex);
-		if (philo->status == THINKING && is_full_philo(philo) == 0)
-		{
-			pthread_mutex_unlock(&philo->status_mutex);
-			eating(philo);
-		}
-		else if (philo->status == EATING)
-		{
-			pthread_mutex_unlock(&philo->status_mutex);
-			sleeping(philo);
-		}
-		else if (philo->status == SLEEPING)
-		{
-			pthread_mutex_unlock(&philo->status_mutex);
-			thinking(philo);
-		}
-		else
-		{
-			pthread_mutex_unlock(&philo->status_mutex);
-		}
+		handle_philosopher_state(philo);
 	}
 	return (NULL);
 }
+
+/*ROUTINE IN 1 BLOC*/
+// void *routine(void *void_philo)
+// {
+// 	t_philo *philo = (t_philo *)void_philo;
+
+// 	wait_for_start(philo->data);
+
+// 	while (1)
+// 	{
+// 		pthread_mutex_lock(&philo->data->end_of_simulation_mutex);
+// 		if (philo->data->end_of_simulation)
+// 		{
+// 			pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
+// 			break;
+// 		}
+// 		pthread_mutex_unlock(&philo->data->end_of_simulation_mutex);
+// 		if (is_full_philo(philo)) // Vérifie si le philosophe a atteint son quota de repas
+// 		{
+// 			pthread_mutex_lock(&philo->status_mutex);
+// 			philo->status = THINKING;
+// 			pthread_mutex_unlock(&philo->status_mutex);
+// 			display_log(THINK_LOG, philo);
+// 			break;
+// 		}
+// 		pthread_mutex_lock(&philo->status_mutex);
+// 		if (philo->status == THINKING && is_full_philo(philo) == 0)
+// 		{
+// 			pthread_mutex_unlock(&philo->status_mutex);
+// 			eating(philo);
+// 		}
+// 		else if (philo->status == EATING)
+// 		{
+// 			pthread_mutex_unlock(&philo->status_mutex);
+// 			sleeping(philo);
+// 		}
+// 		else if (philo->status == SLEEPING)
+// 		{
+// 			pthread_mutex_unlock(&philo->status_mutex);
+// 			thinking(philo);
+// 		}
+// 		else
+// 		{
+// 			pthread_mutex_unlock(&philo->status_mutex);
+// 		}
+// 	}
+// 	return (NULL);
+// }

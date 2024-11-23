@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:52:05 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 19:47:45 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:59:32 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,9 @@ void monitor_routine(t_data *data);
 
 /*philo_routine.c*/
 void take_forks(t_philo *philo);
+int is_full_philo(t_philo *philo);
+int check_simulation_end(t_philo *philo);
+void handle_philosopher_state(t_philo *philo);
 void *routine(void *void_philo);
 
 /*state.c*/
