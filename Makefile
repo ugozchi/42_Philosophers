@@ -6,7 +6,7 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 13:20:12 by uzanchi           #+#    #+#              #
-#    Updated: 2024/11/23 19:29:41 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/23 21:54:24 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,14 @@ fclean:			clean
 re:				fclean all
 
 project_logo:
-				@echo "${RED}   _     _     _     _     _     _     _     _     _     _     _     _  \n  / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \   / \ \n ( ${CYAN}P${RED} ) ( ${CYAN}h${RED} ) ( ${CYAN}i${RED} ) ( ${CYAN}l${RED} ) ( ${CYAN}o${RED} ) ( ${CYAN}s${RED} ) ( ${CYAN}o${RED} ) ( ${CYAN}p${RED} ) ( ${CYAN}h${RED} ) ( ${CYAN}e${RED} ) ( ${CYAN}r${RED} ) ( ${CYAN}s${RED} )\n  \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/   \_/ \n\n                                             ${NC}a 42 project by ${BOLD}Ugo Zanchi${NC}"
+	@echo "																												   "
+	@echo "${ROSE}  ██████╗ ██╗  ██╗██╗██╗      ██████╗ ███████╗ ██████╗ ██████╗ ██╗  ██╗███████╗██████╗ ███████╗  ${RESET}"
+	@echo "${ROSE}  ██╔══██╗██║  ██║██║██║     ██╔═══██╗██╔════╝██╔═══██╗██╔══██╗██║  ██║██╔════╝██╔══██╗██╔════╝  ${RESET}"
+	@echo "${ROSE}  ██████╔╝███████║██║██║     ██║   ██║███████╗██║   ██║██████╔╝███████║█████╗  ██████╔╝███████╗  ${RESET}"
+	@echo "${ROSE}  ██╔═══╝ ██╔══██║██║██║     ██║   ██║╚════██║██║   ██║██╔═══╝ ██║  ██║██╔══╝  ██╔═██╗ ╚════██║  ${RESET}"
+	@echo "${ROSE}  ██║     ██║  ██║██║███████╗╚██████╔╝███████║╚██████╔╝██║     ██║  ██║███████╗██║ ╚██╗███████║  ${RESET}"
+	@echo "${ROSE}  ╚═╝     ╚═╝  ╚═╝╚═╝╚══════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚══════╝  ${RESET}"
+	@echo "									a 42 Project by ZANCHI Ugo													   "
 
 entry_message:
 				@echo "${CYAN}\nCOMPILING $$(echo ${NAME} | tr '[:lower:]' '[:upper:]')\n${NC}${BOLD}Compiling necessary .o files out of ${SRC_NR} .c files in total${NC}"
