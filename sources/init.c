@@ -6,12 +6,36 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:27 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 19:12:27 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:31:44 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+/*Initialise la liste de tous les philosophes en liste circulaire. Le premier
+et dernier philosophe sont assis a cote. et partage une fourchette.
+Si la creation d'un seul echoue, la focntion retourne EXIT_FAILURE*/
+int init_philosophers(t_data *data)
+{
+	t_philo *ptr;
+	size_t philo_id;
+
+	data->philo = new_philosopher(1, data);
+	if (!data->philo)
+		return (EXIT_FAILURE);
+	ptr = data->philo;
+	philo_id = 2;
+	while (philo_id <= data->nbr_of_philo)
+	{
+		ptr->next = new_philosopher(philo_id++, data);
+		if (!ptr->next)
+			return (EXIT_FAILURE);
+		ptr = ptr->next;
+	}
+	ptr->right_fork_id = 1;
+	ptr->next = data->philo;
+	return (EXIT_SUCCESS);
+}
 
 /*Alloue de la memoire et inialise un nouveau philosopher avec les ID de ses
 fourchettes. Mais aussi la date du dernier repas(debut de la simulation) */
@@ -41,33 +65,8 @@ t_philo *new_philosopher(size_t philo_id, t_data *data)
 	return (new);
 }
 
-/*Initialise la liste de tous les philosophes en liste circulaire. Le premier
-et dernier philosophe sont assis a cote. et partage une fourchette.
-Si la creation d'un seul echoue, la focntion retourne EXIT_FAILURE*/
-int init_philosophers(t_data *data)
-{
-	t_philo *ptr;
-	size_t philo_id;
-
-	data->philo = new_philosopher(1, data);
-	if (!data->philo)
-		return (EXIT_FAILURE);
-	ptr = data->philo;
-	philo_id = 2;
-	while (philo_id <= data->nbr_of_philo)
-	{
-		ptr->next = new_philosopher(philo_id++, data);
-		if (!ptr->next)
-			return (EXIT_FAILURE);
-		ptr = ptr->next;
-	}
-	ptr->right_fork_id = 1;
-	ptr->next = data->philo;
-	return (EXIT_SUCCESS);
-}
-
 /* Determines the initial state of a philosopher */
-static t_philo_status get_initial_status(size_t id, size_t nbr_of_philo)
+t_philo_status get_initial_status(size_t id, size_t nbr_of_philo)
 {
 	if (nbr_of_philo % 2 == 0)
 	{

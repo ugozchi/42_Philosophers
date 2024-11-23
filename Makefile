@@ -6,7 +6,7 @@
 #    By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 13:20:12 by uzanchi           #+#    #+#              #
-#    Updated: 2024/10/19 18:12:52 by uzanchi          ###   ########.fr        #
+#    Updated: 2024/11/23 19:29:41 by uzanchi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,13 +29,15 @@ NC			=	\033[0m
 BOLD		=	\033[1m
 TICK		=	✓
 
-SRC			=	utils1.c \
-				utils2.c \
-				end.c \
+SRC			=	checkers_utils.c \
+				clean.c \
+				global_utils.c \
 				init.c \
 				main.c \
 				monitor_routine.c \
-				philo_routine.c
+				philo_routine.c \
+				state.c \
+				thread.c
 
 SRCS		=	$(addprefix ${SRCS_DIR}, ${SRC})
 SRC_NR		=	$(words ${SRCS})

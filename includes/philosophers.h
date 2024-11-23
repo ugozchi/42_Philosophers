@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:52:05 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 19:25:25 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:32:20 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_data
 	pthread_mutex_t start_of_simulation_mutex;
 } t_data;
 
+
 /*cherckers_utils.c*/
 int ft_atoi(const char *nptr);
 int ft_isspace(int c);
@@ -134,6 +135,7 @@ t_philo *new_philosopher(size_t philo_id, t_data *data);
 int init_philosophers(t_data *data);
 int init_forks(t_data *data);
 int init_data(t_data *data, char **argv);
+t_philo_status get_initial_status(size_t id, size_t nbr_of_philo);
 
 /*main.c*/
 int check_arguments(int argc, char **argv);

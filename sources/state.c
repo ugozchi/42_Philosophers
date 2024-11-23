@@ -6,9 +6,11 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 19:23:43 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 19:24:28 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:32:41 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philosophers.h"
 
 void eating(t_philo *philo)
 {
