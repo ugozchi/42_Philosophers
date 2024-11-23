@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   end.c                                              :+:      :+:    :+:   */
+/*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:14:41 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 16:08:56 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:07:25 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,23 +66,3 @@ int	free_data(t_data *data, int exit_code)
 	return (exit_code);
 }
 
-/*Boucle parmis tous les philosophes pour rejoinde tous les threads qui ont
-été créé*/
-int	join_philo_threads(t_data *data)
-{
-	t_philo	*ptr;
-	size_t	i;
-
-	i = data->nbr_of_philo;
-	ptr = data->philo;
-	while (i--)
-	{
-		if (pthread_join(ptr->routine, NULL) != 0)
-		{
-			printf(THREAD_DETACH_FAIL, ptr->id);
-			return (EXIT_FAILURE);
-		}
-		ptr = ptr->next;
-	}
-	return (EXIT_SUCCESS);
-}

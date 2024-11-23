@@ -6,32 +6,12 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:13:27 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 18:53:16 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:12:27 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-/* Determines the initial state of a philosopher */
-static t_philo_status get_initial_status(size_t id, size_t nbr_of_philo)
-{
-	if (nbr_of_philo % 2 == 0)
-	{
-		if (id % 2 == 0)
-			return THINKING;
-		else
-			return SLEEPING;
-	}
-	else
-	{
-		if (id % 3 == 0)
-			return EATING;
-		else if (id % 3 == 1)
-			return THINKING;
-		else
-			return SLEEPING;
-	}
-}
 
 /*Alloue de la memoire et inialise un nouveau philosopher avec les ID de ses
 fourchettes. Mais aussi la date du dernier repas(debut de la simulation) */
@@ -86,6 +66,27 @@ int init_philosophers(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+/* Determines the initial state of a philosopher */
+static t_philo_status get_initial_status(size_t id, size_t nbr_of_philo)
+{
+	if (nbr_of_philo % 2 == 0)
+	{
+		if (id % 2 == 0)
+			return THINKING;
+		else
+			return SLEEPING;
+	}
+	else
+	{
+		if (id % 3 == 0)
+			return EATING;
+		else if (id % 3 == 1)
+			return THINKING;
+		else
+			return SLEEPING;
+	}
+}
+
 /*Initialisation des mutex pour chacune des fourchettes.
 EXIT_FAILURE si l'une des initialisations fail*/
 int init_forks(t_data *data)
@@ -132,35 +133,10 @@ int init_data(t_data *data, char **argv)
 		return (free_data(data, EXIT_FAILURE));
 	if (init_forks(data))
 		return (free_data(data, EXIT_FAILURE));
-	if (pthread_mutex_init(&data->nbr_of_full_philo_mutex, NULL) || pthread_mutex_init(&data->display_mutex, NULL) || pthread_mutex_init(&data->end_of_simulation_mutex, NULL) || pthread_mutex_init(&data->start_of_simulation_mutex, NULL))
+	if (pthread_mutex_init(&data->nbr_of_full_philo_mutex, NULL)
+		|| pthread_mutex_init(&data->display_mutex, NULL)
+		|| pthread_mutex_init(&data->end_of_simulation_mutex, NULL)
+		|| pthread_mutex_init(&data->start_of_simulation_mutex, NULL))
 		return (free_data(data, EXIT_FAILURE));
-	return (EXIT_SUCCESS);
-}
-
-/*Boucle le temps qu'un thread soit envoye pour chacun des philosophes.*/
-int launch_threads(t_data *data)
-{
-	size_t i;
-	t_philo *ptr;
-
-	i = data->nbr_of_philo;
-	ptr = data->philo;
-	while (i--)
-	{
-		if (pthread_create(&ptr->routine, NULL, routine, (void *)ptr) != 0)
-		{
-			printf(THREAD_CREATION_FAIL, ptr->id);
-			while (++i < data->nbr_of_philo)
-				pthread_join(ptr->routine, NULL);
-			return (EXIT_FAILURE);
-		}
-		ptr = ptr->next;
-	}
-	pthread_mutex_lock(&data->display_mutex);
-	data->start_time = get_time();
-	pthread_mutex_unlock(&data->display_mutex);
-	pthread_mutex_lock(&data->start_of_simulation_mutex);
-	data->start_of_simulation = 1;
-	pthread_mutex_unlock(&data->start_of_simulation_mutex);
 	return (EXIT_SUCCESS);
 }

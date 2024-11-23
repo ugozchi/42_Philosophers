@@ -6,43 +6,43 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 12:52:05 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 16:24:03 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:21:29 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
-# define PHILOSOPHERS_H
+#define PHILOSOPHERS_H
 
 /*libraries*/
-# include <stdlib.h>
-# include <stdio.h>
-# include <limits.h>
-# include <time.h>
-# include <pthread.h>
-# include <string.h>
-# include <sys/time.h>
-# include <pthread.h>
-# include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <limits.h>
+#include <time.h>
+#include <pthread.h>
+#include <string.h>
+#include <sys/time.h>
+#include <pthread.h>
+#include <unistd.h>
 
 /*MESSAGES*/
 /*Errors*/
-# define WRG_ARG_NR "The program expects 4 or 5 arguments: \
+#define WRG_ARG_NR "The program expects 4 or 5 arguments: \
 number_of_philosophers, time_to_die, time_to_eat, time_to_sleep and \
 number_of_times_each_philosopher_must_eat (optional)\n"
-# define INVALID_ARG "%s is an invalid argument: must be a positive int"
-# define MALLOC_FAIL "Memory allocation failure\n"
-# define THREAD_CREATION_FAIL "Failed to join thread for philosopher %zu\n"
-# define THREAD_JOIN_FAIL "Failed to join thread for philosopher %zu\n"
-# define THREAD_DETACH_FAIL "Failed to detach thread for philosopher %zu\n"
-# define MUTEX_FAIL "Mutex creation failure\n"
+#define INVALID_ARG "%s is an invalid argument: must be a positive int"
+#define MALLOC_FAIL "Memory allocation failure\n"
+#define THREAD_CREATION_FAIL "Failed to join thread for philosopher %zu\n"
+#define THREAD_JOIN_FAIL "Failed to join thread for philosopher %zu\n"
+#define THREAD_DETACH_FAIL "Failed to detach thread for philosopher %zu\n"
+#define MUTEX_FAIL "Mutex creation failure\n"
 
 /*Logs*/
-# define FORK_LOG "\033[1:37m%03lu\033[0m %d has taken a fork\n"
-# define EAT_LOG "\033[1:37m%03lu\033[0m %d is eating\n"
-# define SLEEP_LOG "\033[1:37m%03lu\033[0m %d is sleeping\n"
-# define THINK_LOG "\033[1:37m%03lu\033[0m %d is thinking\n"
-# define DEATH_LOG "\033[1:37m%03lu\033[0m \033[1;31m%d died\033[0m\n"
-# define ALL_FULL_LOG "\033[1:37m%03lu\033[0m \033[1;32mAll %d philosophers had\
+#define FORK_LOG "\033[1:37m%03lu\033[0m %d has taken a fork\n"
+#define EAT_LOG "\033[1:37m%03lu\033[0m %d is eating\n"
+#define SLEEP_LOG "\033[1:37m%03lu\033[0m %d is sleeping\n"
+#define THINK_LOG "\033[1:37m%03lu\033[0m %d is thinking\n"
+#define DEATH_LOG "\033[1:37m%03lu\033[0m \033[1;31m%d died\033[0m\n"
+#define ALL_FULL_LOG "\033[1:37m%03lu\033[0m \033[1;32mAll %d philosophers had\
  %d meals\033[0m\n"
 
 /*data_model*/
@@ -60,96 +60,102 @@ number_of_times_each_philosopher_must_eat (optional)\n"
 // 	struct s_philo	*next;
 // }	t_philo;
 
-typedef enum e_status {
-    EATING,
-    SLEEPING,
-    THINKING,
-    DIED
+typedef enum e_status
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	DIED
 } t_philo_status;
 
-typedef struct s_philo {
-    size_t id;
-    int left_fork_id;
-    int right_fork_id;
-    __uint64_t last_meal;
-    size_t nbr_of_meals;
+typedef struct s_philo
+{
+	size_t id;
+	int left_fork_id;
+	int right_fork_id;
+	__uint64_t last_meal;
+	size_t nbr_of_meals;
 	int philo_is_full;
-	
-    t_philo_status status;
-	
-    pthread_t routine;
-	
-    pthread_mutex_t last_meal_mutex;
-    pthread_mutex_t status_mutex;
-    pthread_mutex_t nb_meals_mutex;
-	
-    struct s_data *data;
-    struct s_philo *next;
+
+	t_philo_status status;
+
+	pthread_t routine;
+
+	pthread_mutex_t last_meal_mutex;
+	pthread_mutex_t status_mutex;
+	pthread_mutex_t nb_meals_mutex;
+
+	struct s_data *data;
+	struct s_philo *next;
 } t_philo;
 
 typedef struct s_data
 {
-	__uint64_t		start_time;
-	int				start_of_simulation;
-	int				end_of_simulation;
-	
-	size_t			nbr_of_philo;
-	__uint64_t		time_to_die;
-	__uint64_t		time_to_eat;
-	__uint64_t		time_to_sleep;
-	size_t			nbr_of_meals;
-	size_t			nbr_of_full_philo;
-	
-	t_philo			*philo;
-	
-	pthread_mutex_t	end_of_simulation_mutex;
-	pthread_mutex_t	nbr_of_full_philo_mutex;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	display_mutex;
-	pthread_mutex_t	start_of_simulation_mutex;
-}	t_data;
+	__uint64_t start_time;
+	int start_of_simulation;
+	int end_of_simulation;
 
-/*_utils_1.c*/
-int		ft_atoi(const char *nptr);
-int		ft_isspace(int c);
-int		ft_isdigit(int c);
-int		ft_isnumeric(char *str);
-int		ft_strcmp(const char *s1, const char *s2);
+	size_t nbr_of_philo;
+	__uint64_t time_to_die;
+	__uint64_t time_to_eat;
+	__uint64_t time_to_sleep;
+	size_t nbr_of_meals;
+	size_t nbr_of_full_philo;
 
-/*_utils_2.c*/
-int			ft_min(int a, int b);
-int			ft_max(int a, int b);
-__uint64_t	get_time(void);
-int			display_log(char *log, t_philo *philo);
-void		wait_for_start(t_data *data);
+	t_philo *philo;
 
-/*end.c*/
-void	destroy_forks(t_data *data);
-void	free_philosopher(t_philo *philosopher);
-int		free_data(t_data *data, int exit_code);
-int		join_philo_threads(t_data *data);
+	pthread_mutex_t end_of_simulation_mutex;
+	pthread_mutex_t nbr_of_full_philo_mutex;
+	pthread_mutex_t *forks;
+	pthread_mutex_t display_mutex;
+	pthread_mutex_t start_of_simulation_mutex;
+} t_data;
+
+/*cherckers_utils.c*/
+int ft_atoi(const char *nptr);
+int ft_isspace(int c);
+int ft_isdigit(int c);
+int ft_isnumeric(char *str);
+int ft_strcmp(const char *s1, const char *s2);
+
+/*clean.c*/
+void destroy_forks(t_data *data);
+void free_philosopher(t_philo *philosopher);
+int free_data(t_data *data, int exit_code);
+
+/*global_utils.c*/
+int ft_min(int a, int b);
+int ft_max(int a, int b);
+__uint64_t get_time(void);
+int display_log(char *log, t_philo *philo);
 
 /*init.c*/
-t_philo	*new_philosopher(size_t philo_id, t_data *data);
-int		init_philosophers(t_data *data);
-int		init_forks(t_data *data);
-int		init_data(t_data *data, char **argv);
-int		launch_threads(t_data *data);
+t_philo *new_philosopher(size_t philo_id, t_data *data);
+int init_philosophers(t_data *data);
+int init_forks(t_data *data);
+int init_data(t_data *data, char **argv);
 
 /*main.c*/
-int		check_arguments(int argc, char **argv);
-int		main(int argc, char **argv);
+int check_arguments(int argc, char **argv);
+int main(int argc, char **argv);
 
 /*monitor_routine.c*/
-int		philo_is_dead(t_philo *philo);
-int		all_full_philo(t_data *data);
-void	monitor_routine(t_data *data);
+int philo_is_dead(t_philo *philo);
+int all_full_philo(t_data *data);
+void wait_for_start(t_data *data);
+void monitor_routine(t_data *data);
 
 /*philo_routine.c*/
-void	take_forks(t_philo *philo);
-void	eating(t_philo	*philo);
-void	sleeping(t_philo *philo);
-void	thinking(t_philo *philo);
-void	*routine(void *void_philo);
+void take_forks(t_philo *philo);
+void eating(t_philo *philo);
+void sleeping(t_philo *philo);
+void thinking(t_philo *philo);
+void *routine(void *void_philo);
+
+/*thread.c*/
+int launch_threads(t_data *data);
+int join_philo_threads(t_data *data);
+
+
 
 #endif

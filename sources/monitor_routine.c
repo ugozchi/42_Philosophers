@@ -6,7 +6,7 @@
 /*   By: uzanchi <uzanchi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 13:19:22 by uzanchi           #+#    #+#             */
-/*   Updated: 2024/11/23 18:55:04 by uzanchi          ###   ########.fr       */
+/*   Updated: 2024/11/23 19:16:33 by uzanchi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,20 @@ int all_full_philo(t_data *data)
 	pthread_mutex_unlock(&data->nbr_of_full_philo_mutex);
 
 	return is_all_full;
+}
+
+/*Boucle en attendant le flag pour commencer*/
+void	wait_for_start(t_data *data)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&data->start_of_simulation_mutex);
+		if (data->start_of_simulation)
+			break ;
+		pthread_mutex_unlock(&data->start_of_simulation_mutex);
+		usleep(500);
+	}
+	pthread_mutex_unlock(&data->start_of_simulation_mutex);
 }
 
 /* Routine de surveillance */
