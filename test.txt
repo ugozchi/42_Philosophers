@@ -1,0 +1,4 @@
+./philo 5 200 300 300 5
+./philo 7 800 200 200 10
+while true; do ./philo 5 800 200 200 5; done
+valgrind --leak-check=full ./philo 5 800 200 200 5
